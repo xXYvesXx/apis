@@ -1,14 +1,21 @@
-const express = require('express')
+"use strict";
 
-const app = express()
-const router = express.Router()
+const express = require("express");
 
-const route = router.get('/', (req, res, next) => {
+const app = express();
+const router = express.Router();
+
+const route = router.get("/", (req, res, next) => {
   res.status(200).send({
-    title: 'Node Store API',
-    version: '0.0.1',
-  })
-})
-app.use('/', route)
+    title: "Node Store API",
+    version: "0.0.1",
+  });
+});
 
-module.exports = app
+const create = router.post("/", (req, res, next) => {
+  res.status(201).send(req.body);
+});
+app.use("/", route);
+app.use("/products", create);
+
+module.exports = app;
